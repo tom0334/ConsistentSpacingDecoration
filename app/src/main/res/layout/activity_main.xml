@@ -5,9 +5,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="f.tom.consistentspacingdemo.MainActivity">
+    tools:context="f.tom.consistentspacingdemo.MainActivity"
+
+
+    >
 
     <android.support.v7.widget.RecyclerView
+        android:background="#f5f5f5"
         android:id="@+id/mainRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
