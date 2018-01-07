@@ -14,7 +14,7 @@ import android.view.View;
  * The reason for that is that this class uses recyclerview.getadapter().getitemcount() to figure out how many rows there are.
  */
 
-public class ItemOffsetDecoration extends RecyclerView.ItemDecoration {
+public class ConsistentSpacingDecoration extends RecyclerView.ItemDecoration {
     // Im using half and whole offsets, because the items in the middle otherwise get double padding( paddingleft from the rightmost item and paddingright from the leftmost).
     // this makes the margin consistent on the sides and between the columns.
     private int horizontalOffset;
@@ -26,7 +26,7 @@ public class ItemOffsetDecoration extends RecyclerView.ItemDecoration {
     private boolean header; // the header is the first item. Enable this if your first item spans all columns
     private boolean zeroPaddingHeader; // when enabled, the header has zero padding
 
-    public ItemOffsetDecoration(int verticalOffset, int horizontalOffset, int columns, boolean header, boolean zeroPaddingHeader) {
+    public ConsistentSpacingDecoration(int verticalOffset, int horizontalOffset, int columns, boolean header, boolean zeroPaddingHeader) {
         this.numOfColumns = columns;
         this.header = header;
         this.verticalOffset = verticalOffset;
