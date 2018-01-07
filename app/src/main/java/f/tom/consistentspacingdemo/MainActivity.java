@@ -1,12 +1,16 @@
 package f.tom.consistentspacingdemo;
 
+import android.content.DialogInterface;
 import android.graphics.drawable.GradientDrawable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.widget.ArrayAdapter;
 
 import java.util.ArrayList;
 
@@ -40,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
 
         //craete some dummy data
         data = new ArrayList<>(10);
-        for (int i = 0; i < 25; i++) {
+        for (int i = 0; i < 11; i++) {
             data.add(new RecyclerViewData(i));
         }
 
@@ -53,6 +57,61 @@ public class MainActivity extends AppCompatActivity {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_main, menu);
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.addView:
+                addItem();
+                break;
+            case R.id.editViews:
+                editNumOfColumns();
+                break;
+
+        }
+
+        return false;
+    }
+
+    private void addItem() {
+        data.add(new RecyclerViewData( data.size()-1));
+        adapter.notifyItemInserted( data.size()-1);
+    }
+
+    private void editNumOfColumns() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        builder.setTitle("Pick number of columns");
+
+        final ArrayAdapter<String> adap = new ArrayAdapter<String>(this, android.R.layout.select_dialog_item);
+        for (int i = 1; i <11 ; i++) {
+            adap.add( i + " Columns" );
+        }
+
+        builder.setAdapter(adap, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                changeNumOfColumns(i +1);
+            }
+        });
+        builder.show();
+    }
+
+    private void changeNumOfColumns(int newNum){
+        this.columnCount= newNum;
+
+        //this is to not create a new one each time. Remove the old one, or you will get double spacing!
+        if (betterSpacing!=null) {
+            this.recv.removeItemDecoration(betterSpacing);
+        }
+
+        //init recyclerview creates a new gridlayoutmanager with the amount of columns
+        initRecyclerView();
+
+        //reapply the decoration
+        applyDecoration();
+
     }
 
     private void applyDecoration() {

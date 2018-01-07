@@ -1,7 +1,9 @@
 package f.tom.consistentspacingdecoration;
 
 import android.graphics.Rect;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 
 
@@ -134,4 +136,9 @@ public class ConsistentSpacingDecoration extends RecyclerView.ItemDecoration {
             outRect.bottom= halfVerticalOffset;
         }
     }
+
+    public void setNumOfColumns(int numOfColumns){
+        this.numOfColumns= numOfColumns;
+    }
+
 }

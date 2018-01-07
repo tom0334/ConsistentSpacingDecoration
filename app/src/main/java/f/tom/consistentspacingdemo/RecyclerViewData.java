@@ -12,6 +12,6 @@ class RecyclerViewData {
     }
 
     public String getItemText(){
-        return "Item " + itemPos;
+        return "Item " + (itemPos +1);
     }
 }
