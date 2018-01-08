@@ -79,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void toggleHeaderPadding() {
-        if ( ! headerPadding){
+        if ( ! useHeader){
             Toast.makeText(this, "Please enable the header first!", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -90,6 +90,10 @@ public class MainActivity extends AppCompatActivity {
 
     private void toggleHeader() {
         this.useHeader = !useHeader;
+        if (this.useHeader){
+            this.headerPadding= false;
+        }
+
         update();
     }
 
