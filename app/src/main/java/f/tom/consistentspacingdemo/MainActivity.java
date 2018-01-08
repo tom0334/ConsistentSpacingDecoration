@@ -169,15 +169,16 @@ public class MainActivity extends AppCompatActivity {
         //This shows how to use this libary
 
         //get size from dimensions. In this case, 16dp
-        int paddingPX = getResources().getDimensionPixelSize(R.dimen.recyclerViewSpacing);
+        int paddingPxVertical = getResources().getDimensionPixelSize(R.dimen.recyclerViewSpacing);
+        int paddingPxHorizontal=getResources().getDimensionPixelSize(R.dimen.recyclerViewSpacing);
         //create the decoration
         this.betterSpacing = new ConsistentSpacingDecoration(
-                paddingPX, //the vertical margin between items in px
-                paddingPX,  //horizontal
-                columnCount, // the amount of columns your gridlayoutmanager uses. 1 if using linear
-                useHeader,  // if you are using a header that spans all columns
-                headerPadding // if you want that header to have no padding at all. Doesnt have any effect if useheader==false
+                paddingPxHorizontal, //the horizontal margin between items in px
+                paddingPxVertical,  //vertical
+                columnCount // the amount of columns your gridlayoutmanager uses. 1 if using linear
         );
+        this.betterSpacing.setHeaderEnabled(useHeader, headerPadding);
+
         // add it to your recyclerview, and that's it!
         recv.addItemDecoration(betterSpacing);
     }

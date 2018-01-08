@@ -1,9 +1,7 @@
 package f.tom.consistentspacingdecoration;
 
 import android.graphics.Rect;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 
 
@@ -26,18 +24,22 @@ public class ConsistentSpacingDecoration extends RecyclerView.ItemDecoration {
 
     private int numOfColumns;
     private boolean header; // the header is the first item. Enable this if your first item spans all columns
-    private boolean zeroPaddingHeader; // when enabled, the header has zero padding
+    private boolean usePaddingForHeader; // when disabled, the header has zero padding
 
-    public ConsistentSpacingDecoration(int verticalOffset, int horizontalOffset, int columns, boolean header, boolean zeroPaddingHeader) {
+    public ConsistentSpacingDecoration(int horizontalPaddingPx, int verticalPaddingPx, int columns) {
         this.numOfColumns = columns;
-        this.header = header;
-        this.verticalOffset = verticalOffset;
-        this.horizontalOffset = horizontalOffset;
-        this.halfHorizontalOffset = horizontalOffset / 2;
-        this.halfVerticalOffset = verticalOffset / 2;
-        this.zeroPaddingHeader = zeroPaddingHeader;
-
+        this.verticalOffset = verticalPaddingPx;
+        this.horizontalOffset = horizontalPaddingPx;
+        this.halfHorizontalOffset = horizontalPaddingPx / 2;
+        this.halfVerticalOffset = verticalPaddingPx / 2;
     }
+
+    public void setHeaderEnabled(boolean enabled, boolean usePadding){
+        this.header= enabled;
+        this.usePaddingForHeader = ! usePadding;
+    }
+
+
 
     @Override
     public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
@@ -68,16 +70,18 @@ public class ConsistentSpacingDecoration extends RecyclerView.ItemDecoration {
          * **/
         if (position==0 && header){
 
-            if (zeroPaddingHeader) {
-                outRect.set(0, 0, 0, 0);
-            }
-
-            else {
+            if (usePaddingForHeader){
                 outRect.top=verticalOffset; // top item, so large padding
                 outRect.left= horizontalOffset;
                 outRect.right=horizontalOffset;
                 outRect.bottom=halfVerticalOffset;
             }
+
+            else {
+                outRect.set(0, 0, 0, 0);
+            }
+
+
             return;
         }
 
