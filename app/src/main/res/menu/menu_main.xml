@@ -4,14 +4,26 @@
 
     <item android:id="@+id/editViews"
           android:icon="@drawable/ic_filter_list_white_24dp"
-          android:title="Edit Views"
+          android:title="@string/menu_item_editcolumns"
           app:showAsAction="ifRoom"/>
 
     <item android:id="@+id/addView"
           android:icon="@drawable/ic_playlist_add_white_24dp"
-          android:title="Add View"
+          android:title="@string/menu_item_additem"
           app:showAsAction="ifRoom"/>
 
+    <item android:id="@+id/showInfo"
+          android:icon="@drawable/ic_info_outline_white_24dp"
+          android:title="@string/menu_item_information"
+          app:showAsAction="ifRoom"/>
+
+    <item android:id="@+id/makeFirstItemHeader"
+          android:title="@string/menu_item_toggleheader"
+          app:showAsAction="never"/>
+
+    <item android:id="@+id/firstItemNoPadding"
+          android:title="@string/menu_item_paddinglessheader"
+          app:showAsAction="never"/>
 
 
 </menu>

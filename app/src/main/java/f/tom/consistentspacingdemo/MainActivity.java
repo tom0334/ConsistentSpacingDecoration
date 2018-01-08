@@ -11,6 +11,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -29,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
 
     private int columnCount;
     private boolean useHeader = false;
-    private boolean headerNoPadding = false;
+    private boolean headerPadding = true;
 
 
     @Override
@@ -65,8 +66,45 @@ public class MainActivity extends AppCompatActivity {
             case R.id.editViews:
                 showEditNumOfColumnsDialog();
                 break;
+            case R.id.showInfo:
+                showInfo();
+            case R.id.makeFirstItemHeader:
+                    toggleHeader();
+                break;
+            case R.id.firstItemNoPadding:
+                toggleHeaderPadding();
+                break;
         }
         return false;
+    }
+
+    private void toggleHeaderPadding() {
+        if ( ! headerPadding){
+            Toast.makeText(this, "Please enable the header first!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        this.headerPadding= ! headerPadding;
+        update();
+    }
+
+    private void toggleHeader() {
+        this.useHeader = !useHeader;
+        update();
+    }
+
+    private void showInfo() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(R.string.dialog_about_title);
+        builder.setMessage(R.string.dialog_info_content);
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+            }
+        });
+
+        builder.show();
     }
 
     public void update(){
@@ -87,6 +125,13 @@ public class MainActivity extends AppCompatActivity {
     public void toggleBadSpacing(View v){
         this.useConsistentSpacing = !useConsistentSpacing;
         update();
+
+        if (useConsistentSpacing){
+            Toast.makeText(this, "Note how the spacing is all nice and consistent.", Toast.LENGTH_SHORT).show();
+        }
+        else{
+            Toast.makeText(this, "This is bad. The spacing is inconsistent now, the edges have smaller padding.", Toast.LENGTH_LONG).show();
+        }
     }
 
     private void addItem() {
@@ -96,7 +141,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void showEditNumOfColumnsDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Pick number of columns");
+        builder.setTitle(R.string.dialog_title_pickcolumns);
 
         final ArrayAdapter<String> adap = new ArrayAdapter<String>(this, android.R.layout.select_dialog_item);
         for (int i = 1; i <11 ; i++) {
@@ -127,7 +172,7 @@ public class MainActivity extends AppCompatActivity {
                 paddingPX,  //horizontal
                 columnCount, // the amount of columns your gridlayoutmanager uses. 1 if using linear
                 useHeader,  // if you are using a header that spans all columns
-                headerNoPadding // if you want that header to have no padding at all. Doesnt have any effect if useheader==false
+                headerPadding // if you want that header to have no padding at all. Doesnt have any effect if useheader==false
         );
         // add it to your recyclerview, and that's it!
         recv.addItemDecoration(betterSpacing);
@@ -136,8 +181,21 @@ public class MainActivity extends AppCompatActivity {
     private void initRecyclerView() {
         adapter = new MyRecyclerViewAdapter(data, useConsistentSpacing);
         recv.setAdapter(adapter);
-
         gridMan = new GridLayoutManager(this, columnCount);
+
+        if (useHeader) {
+            // Create a custom SpanSizeLookup where the first item spans both columns
+            gridMan.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+                @Override
+                public int getSpanSize(int position) {
+                    if (position==0){
+                        return columnCount;
+                    }
+                    return 1;
+                }
+            });
+        }
+
         recv.setLayoutManager(gridMan);
         adapter.notifyDataSetChanged();
     }

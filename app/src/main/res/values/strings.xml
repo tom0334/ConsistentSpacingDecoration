@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">ConsistentDemo</string>
+    <string name="dialog_title_pickcolumns">Pick number of columns</string>
+    <string name="menu_item_information">Information</string>
+    <string name="menu_item_additem">Add View</string>
+    <string name="menu_item_editcolumns">Edit Views</string>
+    <string name="dialog_about_title">About ConsistentSpacingDecoration</string>
+    <string name="dialog_info_content">This library solves the issue of consistent spacing when using Gridlayoutmanager with a recyclerview. The issue appears when using regular padding or margin in your recyclerview items. The space between two columns will be double that of the space on the edges. The same is true for the rows. Tap the FAB to toggle between padding and this library.\n\nThis library works for n amount of columns, and it supports a header that spans all columns.</string>
+    <string name="menu_item_paddinglessheader">Paddingless header</string>
+    <string name="menu_item_toggleheader">Toggle header</string>
 </resources>
