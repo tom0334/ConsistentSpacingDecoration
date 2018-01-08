@@ -2,5 +2,6 @@
 <resources>
 
     <dimen name="recyclerViewSpacing">16dp</dimen>
+    <dimen name="recyclerViewHalfSpacing">8dp</dimen>
 
 </resources>

@@ -1,7 +1,6 @@
 package f.tom.consistentspacingdemo;
 
 import android.content.DialogInterface;
-import android.graphics.drawable.GradientDrawable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -22,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
     private MyRecyclerViewAdapter adapter;
     private RecyclerView recv;
     private GridLayoutManager gridMan;
+    private boolean useBadSpacing=false;
 
 
     //the better way
@@ -68,10 +68,27 @@ public class MainActivity extends AppCompatActivity {
             case R.id.editViews:
                 editNumOfColumns();
                 break;
-
+            case R.id.toggleBad:
+                toggleBadSpacing();
+                break;
         }
 
         return false;
+    }
+
+    private void toggleBadSpacing(){
+        this.useBadSpacing= !useBadSpacing;
+
+        //remove the old from the recyclerview.
+        if (this.betterSpacing!=null){
+            recv.removeItemDecoration(betterSpacing);
+        }
+
+        if ( ! useBadSpacing){
+            applyDecoration();
+        }
+        //reinit the recyclerview
+        initRecyclerView();
     }
 
     private void addItem() {
@@ -132,7 +149,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initRecyclerView() {
-        adapter = new MyRecyclerViewAdapter(data);
+        adapter = new MyRecyclerViewAdapter(data, useBadSpacing);
         recv.setAdapter(adapter);
 
         gridMan = new GridLayoutManager(this, columnCount);
