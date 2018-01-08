@@ -15,21 +15,22 @@ import java.util.ArrayList;
 public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAdapter.MyViewHolder>{
 
     private ArrayList<RecyclerViewData> data;
-    private boolean useBadDecoration=false;
+    private boolean useConsistentSpacing;
 
 
-    public MyRecyclerViewAdapter(ArrayList<RecyclerViewData> data, boolean useBadSpacing) {
+    public MyRecyclerViewAdapter(ArrayList<RecyclerViewData> data, boolean useConsistentSpacing) {
         this.data = data;
-        this.useBadDecoration=useBadSpacing;
+        this.useConsistentSpacing =useConsistentSpacing;
     }
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view;
-        if (useBadDecoration){
-            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_item_bad, null);
-        }else {
+        if (useConsistentSpacing){
             view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_item, null);
+
+        }else {
+            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_item_bad, null);
         }
         MyViewHolder viewHolder = new MyViewHolder(view);
         return viewHolder;

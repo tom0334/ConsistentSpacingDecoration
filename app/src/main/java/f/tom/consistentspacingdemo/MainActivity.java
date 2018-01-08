@@ -22,12 +22,10 @@ public class MainActivity extends AppCompatActivity {
     private MyRecyclerViewAdapter adapter;
     private RecyclerView recv;
     private GridLayoutManager gridMan;
-    private boolean useBadSpacing=false;
-
+    private boolean useConsistentSpacing = true;
 
     //the better way
     private ConsistentSpacingDecoration betterSpacing;
-
 
     private int columnCount;
     private boolean useHeader = false;
@@ -42,15 +40,13 @@ public class MainActivity extends AppCompatActivity {
 
         this.columnCount = 2;
 
-
         //craete some dummy data
         data = new ArrayList<>(10);
         for (int i = 0; i < 11; i++) {
             data.add(new RecyclerViewData(i));
         }
 
-        initRecyclerView();
-        applyDecoration();
+        update();
     }
 
     @Override
@@ -67,26 +63,30 @@ public class MainActivity extends AppCompatActivity {
                 addItem();
                 break;
             case R.id.editViews:
-                editNumOfColumns();
+                showEditNumOfColumnsDialog();
                 break;
         }
-
         return false;
     }
 
-    public void toggleBadSpacing(View v){
-        this.useBadSpacing= !useBadSpacing;
+    public void update(){
 
         //remove the old from the recyclerview.
         if (this.betterSpacing!=null){
             recv.removeItemDecoration(betterSpacing);
         }
 
-        if ( ! useBadSpacing){
-            applyDecoration();
+        if (useConsistentSpacing){
+            addConsistentDecoration();
         }
-        //reinit the recyclerview
+
+        //reinit the recyclerview adapter with the new settings
         initRecyclerView();
+    }
+
+    public void toggleBadSpacing(View v){
+        this.useConsistentSpacing = !useConsistentSpacing;
+        update();
     }
 
     private void addItem() {
@@ -94,9 +94,8 @@ public class MainActivity extends AppCompatActivity {
         adapter.notifyItemInserted( data.size()-1);
     }
 
-    private void editNumOfColumns() {
+    private void showEditNumOfColumnsDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-
         builder.setTitle("Pick number of columns");
 
         final ArrayAdapter<String> adap = new ArrayAdapter<String>(this, android.R.layout.select_dialog_item);
@@ -112,24 +111,12 @@ public class MainActivity extends AppCompatActivity {
         });
         builder.show();
     }
-
     private void changeNumOfColumns(int newNum){
         this.columnCount= newNum;
-
-        //this is to not create a new one each time. Remove the old one, or you will get double spacing!
-        if (betterSpacing!=null) {
-            this.recv.removeItemDecoration(betterSpacing);
-        }
-
-        //init recyclerview creates a new gridlayoutmanager with the amount of columns
-        initRecyclerView();
-
-        //reapply the decoration
-        applyDecoration();
-
+        update();
     }
 
-    private void applyDecoration() {
+    private void addConsistentDecoration() {
         //This shows how to use this libary
 
         //get size from dimensions. In this case, 16dp
@@ -147,7 +134,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initRecyclerView() {
-        adapter = new MyRecyclerViewAdapter(data, useBadSpacing);
+        adapter = new MyRecyclerViewAdapter(data, useConsistentSpacing);
         recv.setAdapter(adapter);
 
         gridMan = new GridLayoutManager(this, columnCount);
