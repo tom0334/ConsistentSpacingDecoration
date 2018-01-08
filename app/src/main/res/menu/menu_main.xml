@@ -2,11 +2,6 @@
 <menu xmlns:app="http://schemas.android.com/apk/res-auto"
       xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:id="@+id/toggleBad"
-          android:icon="@drawable/ic_swap_vert_white_24dp"
-          android:title="Toggle consistent"
-          app:showAsAction="always"/>
-
     <item android:id="@+id/editViews"
           android:icon="@drawable/ic_filter_list_white_24dp"
           android:title="Edit Views"

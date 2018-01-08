@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ArrayAdapter;
 
 import java.util.ArrayList;
@@ -68,15 +69,12 @@ public class MainActivity extends AppCompatActivity {
             case R.id.editViews:
                 editNumOfColumns();
                 break;
-            case R.id.toggleBad:
-                toggleBadSpacing();
-                break;
         }
 
         return false;
     }
 
-    private void toggleBadSpacing(){
+    public void toggleBadSpacing(View v){
         this.useBadSpacing= !useBadSpacing;
 
         //remove the old from the recyclerview.

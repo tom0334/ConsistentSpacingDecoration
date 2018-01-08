@@ -1,14 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<android.support.design.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="f.tom.consistentspacingdemo.MainActivity"
+    tools:context="f.tom.consistentspacingdemo.MainActivity">
 
-
-    >
+    <android.support.design.widget.FloatingActionButton
+        app:fabSize="normal"
+        android:id="@+id/fab"
+        android:onClick="toggleBadSpacing"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
+        android:layout_marginBottom="16dp"
+        android:layout_marginRight="16dp"
+        android:src="@drawable/ic_swap_vert_white_24dp"/>
 
     <android.support.v7.widget.RecyclerView
         android:background="#f5f5f5"
@@ -17,4 +25,4 @@
         android:layout_height="match_parent">
     </android.support.v7.widget.RecyclerView>
 
-</LinearLayout>
+</android.support.design.widget.CoordinatorLayout>
