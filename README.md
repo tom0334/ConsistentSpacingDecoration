@@ -1,7 +1,7 @@
 # ConsistentSpacingDecoration
 A RecyclerViewItemDecoration that provides consistent spacing on all 4 sides when working with GridlayoutManager
 
-When using gridlayoutmanager with cards and padding/margin on your listitems, the spacing between items is doubled. This libary fixes that.
+When using gridlayoutmanager with cards and padding/margin on your listitems, the spacing between items is doubled. This librfary fixes that.
 
 
 WITHOUT ConsistentSpacingDecoration  |  WITH ConsistentSpacingDecoration:
