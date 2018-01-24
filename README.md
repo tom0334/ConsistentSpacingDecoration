@@ -1,3 +1,4 @@
+
 # ConsistentSpacingDecoration
 A RecyclerViewItemDecoration that provides consistent spacing on all 4 sides when working with GridlayoutManager.
 
@@ -18,10 +19,13 @@ It also supports:
 * Headers that have no padding at all
 
 
+----------
+
 **How to install:**
 
-Edit your PROJECT build.gradle file to include this line under the allprojects not the buildscript) repositories part:
-maven { url 'https://jitpack.io' }
+Edit your PROJECT build.gradle file to include the following line under "allprojects" (not "buildscript"!):
+
+`maven { url 'https://jitpack.io' }`
 
 Like so:
 
