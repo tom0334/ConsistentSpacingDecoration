@@ -22,7 +22,6 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<RecyclerViewData> data;
     private MyRecyclerViewAdapter adapter;
     private RecyclerView recv;
-    private GridLayoutManager gridMan;
     private boolean useConsistentSpacing = true;
 
     //the better way
@@ -186,7 +185,7 @@ public class MainActivity extends AppCompatActivity {
     private void initRecyclerView() {
         adapter = new MyRecyclerViewAdapter(data, useConsistentSpacing);
         recv.setAdapter(adapter);
-        gridMan = new GridLayoutManager(this, columnCount);
+        GridLayoutManager gridMan = new GridLayoutManager(this, columnCount);
 
         if (useHeader) {
             // Create a custom SpanSizeLookup where the first item spans both columns

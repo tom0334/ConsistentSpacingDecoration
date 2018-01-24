@@ -1,5 +1,5 @@
 # ConsistentSpacingDecoration
-A RecyclerViewItemDecoration that provides consistent spacing on all 4 sides when working with GridlayoutManager
+A RecyclerViewItemDecoration that provides consistent spacing on all 4 sides when working with GridlayoutManager.
 
 When using gridlayoutmanager with cards and padding/margin on your listitems, the spacing between items is doubled. This librfary fixes that.
 
@@ -9,7 +9,7 @@ WITHOUT ConsistentSpacingDecoration  |  WITH ConsistentSpacingDecoration:
 ![bad image](https://github.com/tom0334/ConsistentSpacingDecoration/blob/master/screenshots/screenshot_bad.png)  |  ![bad image](https://github.com/tom0334/ConsistentSpacingDecoration/blob/master/screenshots/screenshot_good.png)
 
 
-Note the the padding between the items. 
+Note the the padding between the items.
 
 It also supports:
 * Vertical padding (the vertical padding is also consistent)
@@ -17,7 +17,31 @@ It also supports:
 * Headers that span all columns
 * Headers that have no padding at all
 
-How to use:
+
+**How to install:**
+
+Edit your PROJECT build.gradle file to include this line under the allprojects not the buildscript) repositories part:
+maven { url 'https://jitpack.io' }
+
+Like so:
+
+	allprojects {
+		repositories {
+			...
+			maven { url 'https://jitpack.io' }
+		}
+	}
+
+Then add the following line to your app build.gradle file:
+
+	dependencies {
+	        compile 'com.github.tom0334:ConsistentSpacingDecoration:1.0'
+	}
+
+
+
+
+**How to use:**
 
         RecyclerView recv = findViewById(R.id.mainRecyclerView);
         int paddingPxVertical = getResources().getDimensionPixelSize(R.dimen.recyclerViewSpacing);
