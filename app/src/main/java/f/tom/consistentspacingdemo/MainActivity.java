@@ -90,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
     private void toggleHeader() {
         this.useHeader = !useHeader;
         if (this.useHeader){
-            this.headerPadding= false;
+            this.headerPadding= true;
         }
 
         update();

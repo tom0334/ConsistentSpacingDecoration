@@ -8,14 +8,14 @@ import android.view.View;
 /**
  * Created by Tom on 20-5-2017.
  *
- * BE AWARE: this is class doesn't work perfectly if you don't add all values to the adapter before calling notifydatasetchanged().
- * Not a big deal, if you don't, only the padding on the bottom of the recyclerview is too small.
+ * This class is basically an itemOffsetDecoration for GridlayoutManagers. It makes sure the spacing between items in consistent in all dimensions,
+ * meaning that the padding between items is equal to the padding on the edges of the grid.
  *
- * The reason for that is that this class uses recyclerview.getadapter().getitemcount() to figure out how many rows there are.
+ * It works for both horizontal and recyclerviews, any amount of columns and supports headers.
  */
 
 public class ConsistentSpacingDecoration extends RecyclerView.ItemDecoration {
-    // Im using half and whole offsets, because the items in the middle otherwise get double padding( paddingleft from the rightmost item and paddingright from the leftmost).
+    // I'm using half and whole offsets, because the items in the middle otherwise get double padding( paddingleft from the rightmost item and paddingright from the leftmost).
     // this makes the margin consistent on the sides and between the columns.
     private int horizontalOffset;
     private int halfHorizontalOffset;
@@ -34,9 +34,14 @@ public class ConsistentSpacingDecoration extends RecyclerView.ItemDecoration {
         this.halfVerticalOffset = verticalPaddingPx / 2;
     }
 
+
+    /**
+     * @param enabled whether you added a "header" that spans all columns to your Recyclerview with GridLayoutManager.setSpanSizeLookup.
+     * @param usePadding if you want the header to have padding.
+     */
     public void setHeaderEnabled(boolean enabled, boolean usePadding){
         this.header= enabled;
-        this.usePaddingForHeader = ! usePadding;
+        this.usePaddingForHeader = usePadding;
     }
 
 
@@ -66,29 +71,35 @@ public class ConsistentSpacingDecoration extends RecyclerView.ItemDecoration {
         }
 
 
-        /**Special case for the header....
-         * **/
+        /**Special case for the header....**/
         if (position==0 && header){
 
             if (usePaddingForHeader){
-                outRect.top=verticalOffset; // top item, so large padding
+
+                //This is the top header, so it has full padding at the top and the sides.
+                outRect.top=verticalOffset;
                 outRect.left= horizontalOffset;
                 outRect.right=horizontalOffset;
-                outRect.bottom=halfVerticalOffset;
+
+                //the bottom also has full padding, unless this is the only item in the recyclerview!
+                if (parent.getAdapter().getItemCount()==1){
+                    outRect.bottom=verticalOffset;
+                }else{
+                    outRect.bottom=halfVerticalOffset;
+                }
             }
 
+            // the paddingless header
             else {
                 outRect.set(0, 0, 0, 0);
             }
-
 
             return;
         }
 
 
 
-        /**For the columns.
-         * **/
+        /**For the columns.**/
         // if there's only one column, the item needs full padding left and right
         if (numOfColumns==1){
             outRect.right= horizontalOffset;
@@ -115,9 +126,7 @@ public class ConsistentSpacingDecoration extends RecyclerView.ItemDecoration {
 
 
 
-        /**For the rows.
-         * */
-
+        /**For the rows.**/
         // if there is only one row, that row needs full padding at top and bottom
         if (numOfRows==1){
             outRect.top=verticalOffset;
@@ -125,7 +134,7 @@ public class ConsistentSpacingDecoration extends RecyclerView.ItemDecoration {
         }
 
         //the top row has large padding at the top
-        if (row==0){
+        else if (row==0){
             outRect.top= verticalOffset;
             outRect.bottom=halfVerticalOffset;
         }
@@ -139,10 +148,6 @@ public class ConsistentSpacingDecoration extends RecyclerView.ItemDecoration {
             outRect.top= halfVerticalOffset;
             outRect.bottom= halfVerticalOffset;
         }
-    }
-
-    public void setNumOfColumns(int numOfColumns){
-        this.numOfColumns= numOfColumns;
     }
 
 }
