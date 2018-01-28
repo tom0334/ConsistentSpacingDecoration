@@ -2,7 +2,7 @@
 # ConsistentSpacingDecoration
 A RecyclerView add-on that provides consistent spacing on all 4 sides when using a GridlayoutManager. Basically a [DividerItemDecoration](https://developer.android.com/reference/android/support/v7/widget/DividerItemDecoration.html), but for recyclerviews with any amount of columns.
 
-You cannot simply use padding or magin on your listitems, as space between two items will be double that of the top and bottom space. This librfary fixes that. See the image below.
+You cannot simply use padding or magin on your listitems, as space between two items will be double that of the top and bottom space. This library fixes that. See the image below.
 
 
 WITHOUT ConsistentSpacingDecoration  |  WITH ConsistentSpacingDecoration:
@@ -18,7 +18,6 @@ It supports:
 * Headers that span all columns
 * Headers that have no padding at all
 * Both Vertical and horizontal recyclerviews
-
 
 ----------
 
