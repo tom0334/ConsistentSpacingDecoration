@@ -40,7 +40,7 @@ Like so:
 Then add the following line to your app build.gradle file:
 
 	dependencies {
-	        compile 'com.github.tom0334:ConsistentSpacingDecoration:1.0'
+	        compile 'com.github.tom0334:ConsistentSpacingDecoration:1.0.1'
 	}
 
 
